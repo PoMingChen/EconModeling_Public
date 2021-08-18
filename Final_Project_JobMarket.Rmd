@@ -33,7 +33,9 @@ from numpy import mean
 ![Pooling_Eqm1](./Figures/Pooling_Eqm1.png)
 
 ![Pooling_Eqm2](./Figures/Pooling_Eqm2.png)
----
+
+
+
 
 <br>
 <br>
