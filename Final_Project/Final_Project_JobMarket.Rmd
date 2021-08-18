@@ -268,3 +268,10 @@ SimpleSpence.Separating_Eqm()
 ```{python SimpleSpence2.1_Pooling_Eqm}
 SimpleSpence.Pooling_Eqm()
 ```
+
+
+### Concern
+
+說明一下沒有把 Eqm Method 放進來的原因在於，如果能夠用 Composition 手法看到 candidate 的 Group，這是可以的。但是也會看到 candidate1toN[0].Group。可能是因為目前的寫法還不夠好。(但是也可以放到 market 再寫)
+
+你也可以講，employer 不可能窮盡所有的潛在求職者，因此他是錄取一個，衡量一個，修正過程是很慢的，也是有成本的。甚至他在這個職缺（或市場）始終都沒有做到分離均衡，團隊內薪酬相當齊值（或者說很接近），就是有 q1 的庸才，和 1-q1 的人才拿差不多的薪酬。

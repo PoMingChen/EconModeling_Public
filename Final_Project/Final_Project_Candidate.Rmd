@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Reference
 
 1. Spence(1973), but ignore the section 6 about indices such as race or gender.
-2. Course Tutorial(Video, E-book, Scripts, Slidess)
+2. Course Tutorial(Video, E-book, Scripts, Slides)
 
 ## makecondition
 

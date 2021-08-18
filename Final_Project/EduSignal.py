@@ -107,35 +107,19 @@ class Candidate:
 #EOF
 
 class Employer:
-    #想要一般化的話，這邊可以多高薪要多高，低薪要多低。也更容易一般化 Google TSMC 等頂尖企業
+    
     def __init__(self, Low, High, Wage_Schedule):
         self.Wage_Schedule=Wage_Schedule
         self.Low = Low
         self.High = High
        
-     
     def Possible_Wage(self, Signal):
         Wage_Schedule = self.Wage_Schedule
-         #In Spence, one candidate instance provide one signal, this is 1(employer) to N(candidates) game. But the concern comes from the reality that Signal is not a attribute belong to Employer. It's like a important, external information
-        # Employer.Signal = Signal
+
         if(Signal >= Wage_Schedule):
           return self.High
         else:
           return self.Low
-    
-    def Check_Eqm(self, employer, candidate):
-        # 看起來是可行的。但是權限大到基本上就是 Mr.JobMarket，用 Mr.JobMarket 的視角在看 Mr.JobMarket 操作的 Eqm-related methods，還在想要不要這樣。
-        #Check_Eqm(self, employer, candidate)，employer 等於是自己。但是若寫
-        #Check_Eqm(self, candidate)
-        # self.jobmarket_result = JobMarket(employer=self, candidate) 會不對，是凸顯變成Mr.JobMarket事實
-        self.jobmarket_result = JobMarket(employer, candidate)
-    
-    # 還有一個可能性是 Mr.JobMarket 做完 Eqm evaluation 之後，他單純借過來看，沒有 Input Arguments 作為阻擋或者 access friction，但是尚未確定是否做得到。
-    #就是 NoAdditionalArguments in method instruction and after JobMarket.xxxmethod e.g.JobMarket.SeparatingEqm(NoAdditionalArguments), return true false and possible paste0 expression about the Group and Signal to mimic the realization after hiring the candidate instance.(But, build the JobMarket.SeparatingEqm... as soon as possible. )
-    # def Check_Eqm(self, NoAdditionalArguments):
-    #     self.jobmarket_result1 = JobMarket.SeparatingEqm(NoAdditionalArguments)
-    #     self.jobmarket_result2 = JobMarket.Pooling1Eqm(NoAdditionalArguments)
-    #     self.jobmarket_result3 = JobMarket.Pooling3Eqm(NoAdditionalArguments)
 
 #EOF
 
@@ -169,11 +153,6 @@ class JobMarket:
         return "Check if there is Separating Eqm."
      
 #EOF
-
-
-#EOF
-
-
 
 
 

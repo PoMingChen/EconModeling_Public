@@ -7,151 +7,63 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+### Reference
+
+1. Spence(1973), but ignore the section 6 about indices such as race or gender.
+2. Course Tutorial(Video, E-book, Scripts, Slides)
+
 ## makecondition
 
+```{r}
+library(reticulate)
+```
+
 ```{python}
-import numpy as np
 from numpy.random import default_rng
+from numpy import mean
 ```
 
+### Reference about the Candidate Class
 
-- Employer 只要有 belief 就能甦醒 `def __init__(self, Wage_Schedule)`，因為所以的雇主都需要有這個 Belief 才能做事，雖然目前只有一個雇主，但是每一個雇主的 Belief 不一樣，像是 TSMC Google 都不見得相同。放在 homogeneous，跟現實比較有距離，且不容易一般化。
+![Figure1](./Figures/Figure1.png)
 
-- 這時候申請者的資訊，反而變成了雇主的 class variable，因為這是他從市場上可以看到的資訊。
+![Figure2](./Figures/Figure2.png)
 
-辨認分離均衡 首先會需要看到他的 candidate.Signal，然後再想辦法看到他的 Group
+#### Reference Note
 
-所以感覺分
+0. 求職市場有兩個部門：求職者（Candidate）以及雇主（Employer）。
 
-separating eqm method return true false
+1. 一個求職市場，或者說一個職缺，只有一個雇主。他會面對如雪片般飛來的履歷，每一次錄取對於雇主都像一次賭注，因為他不知道這個求職者究竟是人才還是庸才。庸才也不是問題，但是只怕他們沒有如雇主的需要去展現他們自己的價值（No Incentive Compability），也間接地沒辦法把他們各自安排在適合的位置，整體效率不夠好。
 
-pooling1 eqm return true false
+   - 僅使用 Spence 模型架構的倒數設定。
 
-pooling2 eqm return turn false 
+2. 參考 Figure1 （Employer's Conditional Probabilistic Beliefs），雇主會決定看到特定教育水準以上，他會認定該位求職者是位人才，給他比較高的薪酬。反之未達該水準，他會認定該位求職者是為庸才。
 
-有點類似 Monopoly Class
+3. 配合 Figure2，雇主會向市場，也就是廣大的求職者們宣告他能提供的薪酬水準，以及他認定人才的水準。
 
-```
-class Monopoly:
-    def __init__(self, mc, Qd):
-        self.mc=mc #Monopoly 一定知道自己的邊際成本
-        self.Qd=Qd #Monopoly 一定看得到市場價格
+## Employer Class
+
+Spence 模型說的是一個 job market（一個求職市場，或者一個職缺），只有一個雇主。所以用 class method 或者 instance method 去寫好像落差不大。但是考量 `Low`，`High`，`Wage_Schedule`，這幾個參數的微調，包含高低薪酬的落差，以及 `Wage_Schedule` 以及比較靠近哪一邊，多少是可以反應雇主的性質。
+
+所以有異質性成份，本質上也是 instance of Employer Class。像是 TSMC 和 Google 終究是不一樣的。
+
+最後決定沒有用 class method。
+
+```{python}
+class Employer:
     
-    def cost(self, p):
-        return self.mc*self.Qd(p)
-    def revenue(self, p):
-        return p*self.Qd(p)
-    def profit(self, p):
-        return p*self.Qd(p) - self.mc *self.Qd(p)
-```
-
-
-但是衍生問題是你要看 candidate 來了 1 個觀察錄取的結果 應該不用一口氣看兩個然後看有無 0 y* 就等於你隨機抽一個出來看的感覺 走 round2 必要，至多round3。round2 時候直接修改 class.variable 記得 ._class_.Belief(這邊後來決定再造一個 JobMarket Class )
-
-## v0 of Employer Class
-
-```{python}
-rng_seed = default_rng()
-rng_seed.integers(low=1, #inclusive
-                                           high=3, #exclusive
-                                           size=1)))
-```
-
-```{python}
-rng_seed = default_rng()
-rng_seed.uniform(0,2)
-```
-
-這邊 Seperating_Method 不會需要是 `Seperating_Method(self,Signal)`，這很像你在想 candidate，要不要把 Wage_Schedule 放到 Optimal_Education Method 裡面，變成 `Optimal_Education(self,Wage_Schedule)`，但是那個不是賦予該 method 活躍的合理參數，因為那不是 candidate 可以自己決定或者 self-identified 的東西。應該要像市場（外生），所有 candidate 齊值。
-```{python Employerv0}
-class Employer:
-  
-    #我會覺得這邊 random 抽的概念，會比目前 Candidate 那邊的 Wage_Schedule 直接是 1.4 還要來得好。
-    Signal = rng_seed.uniform(0,2)
-  
-    def __init__(self, Wage_Schedule):
-        #想要一般化的話，這邊可以多高薪要多高，低薪要多低
-        self.Wage_Schedule=Wage_Schedule
-        
-    def Possible_Wage(self):
-        Wage_Schedule = self.Wage_Schedule
-        Signal = Employer.Signal
-        if(Signal >= Wage_Schedule): 
-          self.High = 2
-          return 2 #想要一般化的話，這邊可以多高薪要多高，低薪要多低
-        else:
-          self.Low = 1
-          return 1
-      
-        #現在的問題在於如果你用 Employer.__class__.Signal 象徵去市場看到的 Signal，會讓 Group 這個東西無法被 accommodate 進到 Employer class （還是始終都看不到呢？那麼如果用 Composition，又要怎麼樣設定才能夠進一步看到呢？畢竟 Employer 聘用是需要看到的，如果再給一個 Job Market Class 應該可以看得到。
-        #Composition 的設計可以透過
-        # class Composite:
-        
-          # composite class constructor(在 Composite 甦醒的時候，就要把 Component 納進來。) 但是要怎麼樣讓兩個 Class 「同時醒」。 
-          # def __init__(self):
-              #...
-              ## creating object of component class
-              ## self.obj1 = Component()
-           # composite class instance method
-          # def m2(self):
-              #...
-              ## calling m1() method of component class
-              ## self.obj1.m1()
-        #我想我決定要把三個 Eqm 放到一個 Job Market Class，然後 Employer 可以在 JobMarket 中看到最後的 Eqm method 的結果。
-        
-    def Seperating_Method(self):
-        Signal = Employer.Signal
-        return 可能是 true false
-    def Pooling1_Method(self):
-        Signal = Employer.Signal
-        return 可能是 true false
-    def Pooling2_Method(self):
-        Signal = Employer.Signal
-        return 可能是 true false
-```
-
-
-### v1 的不足
-
-你的 downside 在於如果沒有把 education 也先在 Employer Class 裡面寫一次的話，到 Composition 架構變大，會因為觀念模糊導致速度變慢。
-
-Candidate 也是，你要小心。
-
-多學 6.1.3 Monopoly Class
-
-先雕 Candidate，把 Employer 的 Wage Schedule 當作 Class Method 去寫
-
-另外一方面，針對 Possible Wage 這邊，應該要是要納入 class instructor 裡面，也就是 Employer 甦醒的時候，會同時決定 Low High Wage_Schedule
-
-## v1 of Employer Class
-
-```{python Employerv1}
-class Employer:
-  
-    #我會覺得這邊 random 抽的概念，會比目前 Candidate 那邊的 Wage_Schedule 直接是 1.4 還要來得好。
-    Signal = rng_seed.uniform(0,2)
-  
-   #想要一般化的話，這邊可以多高薪要多高，低薪要多低。也更容易一般化 Google TSMC 等頂尖企業
     def __init__(self, Low, High, Wage_Schedule):
         self.Wage_Schedule=Wage_Schedule
         self.Low = Low
         self.High = High
-        
-    def Possible_Wage(self):
+       
+    def Possible_Wage(self, Signal):
         Wage_Schedule = self.Wage_Schedule
-        Signal = Employer.Signal
+
         if(Signal >= Wage_Schedule):
           return self.High
         else:
           return self.Low
-```
 
-```{python}
-Employer_TSMC = Employer(Low=1, High=2, Wage_Schedule = 1.4)
+#EOF
 ```
-
-```{python}
-Employer_TSMC.__class__.Signal
-Employer_TSMC.Possible_Wage()
-```
-
