@@ -37,7 +37,7 @@ JobMarket = EduSignal.JobMarket
 
 ### Simple Spence
 
-1. We assume the Wage_Schedule in Round1 is 1.4
+1. We assume the Wage_Schedule in Round1 is 1.4。
 
 ```{python Wage_Schedule_R1}
 Wage_Schedule_R1 = 1.4
