@@ -26,7 +26,7 @@ from numpy import mean
 
 ### Reference about the JobMarket Class
 
-![Separating_Eqm](./Figures/Figure1.png)
+![Information_Loop](./Figures/Figure1.png)
 
 ![Separating_Eqm](./Figures/Separating_Eqm.png)
 

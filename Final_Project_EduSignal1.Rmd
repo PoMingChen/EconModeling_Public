@@ -59,7 +59,7 @@ SimpleSpence.candidate.__class__.High
 SimpleSpence.candidate.__class__.Wage_Schedule
 SimpleSpence.candidate.__class__.candidate1toN #Only himself
 SimpleSpence.candidate.Population()
-SimpleSpence.candidate.__class__.candidate1toN #500 candidates(first one is the main character)
+SimpleSpence.candidate.__class__.candidate1toN[0:5] #500 candidates(first one is the main character)
 len(SimpleSpence.candidate.__class__.candidate1toN) #500
 SimpleSpence.candidate.q1()
 SimpleSpence.candidate.__class__.q1 
@@ -110,7 +110,7 @@ SimpleSpence.Separating_Eqm()
 # SimpleSpence.candidate.Population()
 # SimpleSpence.candidate.q1()
 SimpleSpence.candidate.Group = 2
-SimpleSpence.candidate.__class__.candidate1toN
+SimpleSpence.candidate.__class__.candidate1toN[0:5]
 len(SimpleSpence.candidate.__class__.candidate1toN) #Remain 500
 
 SimpleSpence.candidate.__class__.Wage_Schedule
@@ -167,7 +167,7 @@ candidate's class method
 SimpleSpence.candidate.__class__.Low
 SimpleSpence.candidate.__class__.High
 SimpleSpence.candidate.__class__.Wage_Schedule
-SimpleSpence.candidate.__class__.candidate1toN
+SimpleSpence.candidate.__class__.candidate1toN[0:5]
 SimpleSpence.candidate.__class__.q1 
 SimpleSpence.candidate.__class__.Uniform_Payoff
 ```
@@ -209,7 +209,7 @@ SimpleSpence.Separating_Eqm()
 # SimpleSpence.candidate.q1() #No need to arouse again
 
 SimpleSpence.candidate.Group = 2 
-SimpleSpence.candidate.__class__.candidate1toN
+SimpleSpence.candidate.__class__.candidate1toN[0:5]
 SimpleSpence.candidate.__class__.Wage_Schedule
 SimpleSpence.candidate.__class__.q1
 SimpleSpence.candidate.__class__.Uniform_Payoff
