@@ -211,7 +211,7 @@ candidate_Group1_instance.__class__.Uniform_Payoff
 
 ```{python}
 candidate_Group1_instance.Group
-candidate_Group1_instance.Signaling_Cost(Education=1.3)
+candidate_Group1_instance.Signaling_Cost(Education=0.9)
 candidate_Group1_instance.Optimal_Education()
 candidate_Group1_instance.Signal
 ```
@@ -251,7 +251,7 @@ candidate_Group1_instance.__class__.Uniform_Payoff
 
 ```{python}
 candidate_Group2_instance.Group
-candidate_Group2_instance.Signaling_Cost(Education=1.3)
+candidate_Group2_instance.Signaling_Cost(Education=0.9)
 candidate_Group2_instance.Optimal_Education()
 candidate_Group2_instance.Signal
 ```
