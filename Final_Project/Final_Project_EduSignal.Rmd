@@ -56,7 +56,7 @@ SimpleSpence.candidate.__class__.Low
 SimpleSpence.candidate.__class__.High
 SimpleSpence.candidate.__class__.Wage_Schedule
 SimpleSpence.candidate.__class__.candidate1toN #Only himself
-SimpleSpence.candidate.Population()
+SimpleSpence.candidate.Population(N=500)
 SimpleSpence.candidate.__class__.candidate1toN[0:5] #500 candidates(first one is the main character)
 len(SimpleSpence.candidate.__class__.candidate1toN) #500
 SimpleSpence.candidate.q1()
@@ -69,8 +69,8 @@ candidate's instance method
 ```{python}
 SimpleSpence.candidate.Group
 SimpleSpence.candidate.__class__.Wage_Schedule
-SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule)
-SimpleSpence.candidate.Optimal_Education()
+SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule) #Group1 = 1.4/1
+SimpleSpence.candidate.Optimal_Education() #Uniform_Payoff-1.4 v.s. 1-0
 SimpleSpence.candidate.Signal
 ```
 
@@ -114,8 +114,8 @@ len(SimpleSpence.candidate.__class__.candidate1toN) #Remain 500
 SimpleSpence.candidate.__class__.Wage_Schedule
 SimpleSpence.candidate.__class__.q1
 SimpleSpence.candidate.__class__.Uniform_Payoff
-SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule)
-SimpleSpence.candidate.Optimal_Education()
+SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule) #1.4/2
+SimpleSpence.candidate.Optimal_Education() #Uniform_Payoff-0 v.s 2-1.4/2
 SimpleSpence.candidate.Signal
 ```
 
@@ -174,8 +174,8 @@ candidate's instance method
 ```{python}
 SimpleSpence.candidate.Group = 1 #Convert back to 1 after Round 1.1
 SimpleSpence.candidate.__class__.Wage_Schedule
-SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule)
-SimpleSpence.candidate.Optimal_Education()
+SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule) #0.9/1
+SimpleSpence.candidate.Optimal_Education() #Uniform_Payoff-0.9 v.s. 1-0
 SimpleSpence.candidate.Signal
 ```
 
@@ -211,8 +211,8 @@ SimpleSpence.candidate.__class__.candidate1toN[0:5]
 SimpleSpence.candidate.__class__.Wage_Schedule
 SimpleSpence.candidate.__class__.q1
 SimpleSpence.candidate.__class__.Uniform_Payoff
-SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule)
-SimpleSpence.candidate.Optimal_Education()
+SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule) #0.9/2
+SimpleSpence.candidate.Optimal_Education() #Uniform_Payoff-0 v.s 2-0.9/2
 SimpleSpence.candidate.Signal
 ```
 
@@ -235,9 +235,13 @@ SimpleSpence.Pooling_Eqm()
 
 ### Self-Reflection
 
-1. q1 是否真的能看到？那真要想，多少算合理？求職平台怎麼降低這個不對稱（對於雇主和求職者都是）
+0. Candidate class methods for Population, q1(Group1 proportion), Uniform_Payoff。
 
-2. Signaling_Cost = Education/Group。有 Group1, 2，但是他們的生產力效率可以不見得是 1:2。
+1. q1 是否真的能看到？那真要想，多少算合理？求職平台怎麼降低這個不對稱（對於雇主和求職者都是）e.g. 多少人看過這個職缺＋錄取經驗分享？
+
+2.（N=500），Low、High、Wage_Schedule 的懸殊感。
+
+3. Signaling_Cost = Education/Group。有 Group1 和 Group 2，但是他們的生產力效率可以不見得是 1:2。(1:1/2)
 
     - 可以是 1:5 甚至是 1:10 之類的。表達（庸才, 人才），（庸才，將才），（庸才，將將之才）的差別。
     
@@ -245,7 +249,7 @@ SimpleSpence.Pooling_Eqm()
         
         - Cost of Group2: a2*y = (1/5) * y
     
-自然也會影響到人才會有意願 Signaling 的可能性。
+自然也會影響到人才會有意願 Signaling 的可能性。When Group2 will be better-off with signal. 
 
 $$
 q1 > \frac{a2}{a1}
