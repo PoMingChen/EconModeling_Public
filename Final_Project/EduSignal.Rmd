@@ -10,8 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Reference
 
 0. Job Market Signaling Game
-1. Spence(1973), but ignore the section 6 about indices such as race or gender.
-2. Course Tutorial(Video, E-book, Scripts, Slides)
+1. Spence（1973）, but ignore the section 6 about indices such as race or gender.
+2. Course Tutorial（Video, E-book, Scripts, Slides）
 
 ## makecondition
 
@@ -33,7 +33,7 @@ JobMarket = EduSignal.JobMarket
 
 ### Reference Note
 
-先從 Pooling Eqm 開始想，有點是在想 off-the-path 的部分如果沒問題，那麼 Separating Eqm 終究是成立了。
+先從 Pooling Eqm 開始想，像是 off-the-path 的部分如果沒問題，那麼 Separating Eqm 終究是成立了。
 
 ### Simple Spence
 
@@ -96,13 +96,13 @@ SimpleSpence.Separating_Eqm()
 
 ### Round 1.1: Check if the candidate is from the another group
 
-不再造一個 candidate(instance)，因為 `Candidate.candidate1toN.append(self)` 會讓 `len(SimpleSpence.candidate.__class__.candidate1toN)` 從 500 變成 501，但是已經生成好的 class variable，包含 q1 和 Uniform_Payoff 都是由 500 人下去算的。
+不再造一個 candidate（instance），因為 `Candidate.candidate1toN.append(self)` 會讓 `len(SimpleSpence.candidate.__class__.candidate1toN)` 從 500 變成 501，但是已經生成好的 class variable，包含 q1 和 Uniform_Payoff 都是由 500 人下去算的。
 ```{python}
 # SimpleSpence = JobMarket(employer = Employer(Low=1, High=2, Wage_Schedule=1.4),
 #                          candidate = Candidate(Group=1, Low=1, High=2, Wage_Schedule=1.4))
 ```
 
-所以選擇單方面改`SimpleSpence.candidate.Group`，即是改`SimpleSpence.candidate.__class__.candidate1toN[0]`，也就是改該 candidate(instance) 的 Group。但還是有點不完全貼近現實。
+所以選擇單方面改`SimpleSpence.candidate.Group`，即是改`SimpleSpence.candidate.__class__.candidate1toN[0]`，也就是改該 candidate（instance）的 Group。但還是有點不完全貼近現實。
 ```{python SimpleSpence1.1_candidate}
 # SimpleSpence.candidate.Group #1
 # SimpleSpence.candidate.Population()
@@ -110,7 +110,6 @@ SimpleSpence.Separating_Eqm()
 SimpleSpence.candidate.Group = 2
 SimpleSpence.candidate.__class__.candidate1toN[0:5]
 len(SimpleSpence.candidate.__class__.candidate1toN) #Remain 500
-
 SimpleSpence.candidate.__class__.Wage_Schedule
 SimpleSpence.candidate.__class__.q1
 SimpleSpence.candidate.__class__.Uniform_Payoff
@@ -148,10 +147,10 @@ Wage_Schedule_R2 = 0.9
 #                          candidate = Candidate(Group=1, Low=1, High=2, Wage_Schedule=Wage_Schedule_R2))
 ```
 
-市場環境改變了
-```{python}
-SimpleSpence.candidate.__class__.Wage_Schedule = Wage_Schedule_R2
+雇主 Belief 改變了
+```{python Change_Wage_Schedule}
 SimpleSpence.employer.Wage_Schedule = Wage_Schedule_R2
+SimpleSpence.candidate.__class__.Wage_Schedule = Wage_Schedule_R2
 ```
 
 #### Go through candidate's class & instance method 
@@ -165,7 +164,6 @@ candidate's class method
 SimpleSpence.candidate.__class__.Low
 SimpleSpence.candidate.__class__.High
 SimpleSpence.candidate.__class__.Wage_Schedule
-SimpleSpence.candidate.__class__.candidate1toN[0:5]
 SimpleSpence.candidate.__class__.q1 
 SimpleSpence.candidate.__class__.Uniform_Payoff
 ```
@@ -205,9 +203,7 @@ SimpleSpence.Separating_Eqm()
 #Round1.1 = Group2, Round2 = Group1...
 # SimpleSpence.candidate.Population() #No need to arouse again
 # SimpleSpence.candidate.q1() #No need to arouse again
-
-SimpleSpence.candidate.Group = 2 
-SimpleSpence.candidate.__class__.candidate1toN[0:5]
+SimpleSpence.candidate.Group = 2
 SimpleSpence.candidate.__class__.Wage_Schedule
 SimpleSpence.candidate.__class__.q1
 SimpleSpence.candidate.__class__.Uniform_Payoff
@@ -235,13 +231,13 @@ SimpleSpence.Pooling_Eqm()
 
 ### Self-Reflection
 
-0. Candidate class methods for Population, q1(Group1 proportion), Uniform_Payoff。
+1. Candidate needs class methods for Population, q1(Group1 proportion), Uniform_Payoff。
 
-1. q1 是否真的能看到？那真要想，多少算合理？求職平台怎麼降低這個不對稱（對於雇主和求職者都是）e.g. 多少人看過這個職缺＋錄取經驗分享？
+2. q1 是否真的能看到？那真要想，多少算合理？（v.s. N=500）求職平台怎麼降低這個不對稱（對於雇主和求職者都是）e.g. 多少人看過這個職缺＋錄取經驗分享？
 
-2.（N=500），Low、High、Wage_Schedule 的懸殊感。
+3. Low、High、Wage_Schedule 的懸殊感。
 
-3. Signaling_Cost = Education/Group。有 Group1 和 Group 2，但是他們的生產力效率可以不見得是 1:2。(1:1/2)
+4. Signaling_Cost = Education/Group。有 Group1 和 Group2，但是他們的生產力效率可以不見得是 1:2。
 
     - 可以是 1:5 甚至是 1:10 之類的。表達（庸才, 人才），（庸才，將才），（庸才，將將之才）的差別。
     
@@ -249,7 +245,9 @@ SimpleSpence.Pooling_Eqm()
         
         - Cost of Group2: a2*y = (1/5) * y
     
-自然也會影響到人才會有意願 Signaling 的可能性。When Group2 will be better-off with signal. 
+自然也會影響到人才會有意願 Signaling 的可能性。
+
+When Group2 will be better-off with signal？
 
 $$
 q1 > \frac{a2}{a1}
