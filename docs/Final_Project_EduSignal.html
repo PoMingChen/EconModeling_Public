@@ -208,21 +208,21 @@ JobMarket = EduSignal.JobMarket</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.Wage_Schedule</code></pre>
 <pre><code>## 1.4</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.candidate1toN #Only himself</code></pre>
-<pre><code>## [&lt;EduSignal.Candidate object at 0x139617e80&gt;]</code></pre>
+<pre><code>## [&lt;EduSignal.Candidate object at 0x143b77e80&gt;]</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.Population()</code></pre>
 <pre><code>## 500</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.candidate1toN[0:5] #500 candidates(first one is the main character)</code></pre>
-<pre><code>## [&lt;EduSignal.Candidate object at 0x139617e80&gt;, &lt;EduSignal.Candidate object at 0x139625730&gt;, &lt;EduSignal.Candidate object at 0x1396256a0&gt;, &lt;EduSignal.Candidate object at 0x139625f10&gt;, &lt;EduSignal.Candidate object at 0x139625fd0&gt;]</code></pre>
+<pre><code>## [&lt;EduSignal.Candidate object at 0x143b77e80&gt;, &lt;EduSignal.Candidate object at 0x143b85730&gt;, &lt;EduSignal.Candidate object at 0x143b856a0&gt;, &lt;EduSignal.Candidate object at 0x143b85f10&gt;, &lt;EduSignal.Candidate object at 0x143b85fd0&gt;]</code></pre>
 <pre class="python"><code>len(SimpleSpence.candidate.__class__.candidate1toN) #500</code></pre>
 <pre><code>## 500</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.q1()</code></pre>
-<pre><code>## 0.47</code></pre>
+<pre><code>## 0.518</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.q1 </code></pre>
-<pre><code>## 0.47</code></pre>
+<pre><code>## 0.518</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.Uniform_Payoff() #q1*1+(1-q1)*2 = 2-q1</code></pre>
-<pre><code>## 1.53</code></pre>
+<pre><code>## 1.482</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.Uniform_Payoff</code></pre>
-<pre><code>## 1.53</code></pre>
+<pre><code>## 1.482</code></pre>
 <p>candidate’s instance method</p>
 <pre class="python"><code>SimpleSpence.candidate.Group</code></pre>
 <pre><code>## 1</code></pre>
@@ -266,15 +266,15 @@ JobMarket = EduSignal.JobMarket</code></pre>
 # SimpleSpence.candidate.q1()
 SimpleSpence.candidate.Group = 2
 SimpleSpence.candidate.__class__.candidate1toN[0:5]</code></pre>
-<pre><code>## [&lt;EduSignal.Candidate object at 0x139617e80&gt;, &lt;EduSignal.Candidate object at 0x139625730&gt;, &lt;EduSignal.Candidate object at 0x1396256a0&gt;, &lt;EduSignal.Candidate object at 0x139625f10&gt;, &lt;EduSignal.Candidate object at 0x139625fd0&gt;]</code></pre>
+<pre><code>## [&lt;EduSignal.Candidate object at 0x143b77e80&gt;, &lt;EduSignal.Candidate object at 0x143b85730&gt;, &lt;EduSignal.Candidate object at 0x143b856a0&gt;, &lt;EduSignal.Candidate object at 0x143b85f10&gt;, &lt;EduSignal.Candidate object at 0x143b85fd0&gt;]</code></pre>
 <pre class="python"><code>len(SimpleSpence.candidate.__class__.candidate1toN) #Remain 500</code></pre>
 <pre><code>## 500</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.Wage_Schedule</code></pre>
 <pre><code>## 1.4</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.q1</code></pre>
-<pre><code>## 0.47</code></pre>
+<pre><code>## 0.518</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.Uniform_Payoff</code></pre>
-<pre><code>## 1.53</code></pre>
+<pre><code>## 1.482</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule)</code></pre>
 <pre><code>## 0.7</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.Optimal_Education()</code></pre>
@@ -296,7 +296,7 @@ SimpleSpence.candidate.__class__.candidate1toN[0:5]</code></pre>
 <pre class="python"><code>SimpleSpence.Separating_Eqm()</code></pre>
 <pre><code>## &#39;Check the scenario of Pooling Eqm.&#39;</code></pre>
 <pre class="python"><code>SimpleSpence.Pooling_Eqm()</code></pre>
-<pre><code>## &#39;The Group2(The talent) have no incentive to signal since q1*2 &lt; Wage_Schedule: 0.47 * 2 &lt; 1.4&#39;</code></pre>
+<pre><code>## &#39;The Group2(The talent) have no incentive to signal since q1*2 &lt; Wage_Schedule: 0.518 * 2 &lt; 1.4&#39;</code></pre>
 </div>
 </div>
 <div id="round2-change-the-wage_schedule" class="section level2">
@@ -322,11 +322,11 @@ SimpleSpence.candidate.__class__.Low</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.Wage_Schedule</code></pre>
 <pre><code>## 0.9</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.candidate1toN[0:5]</code></pre>
-<pre><code>## [&lt;EduSignal.Candidate object at 0x139617e80&gt;, &lt;EduSignal.Candidate object at 0x139625730&gt;, &lt;EduSignal.Candidate object at 0x1396256a0&gt;, &lt;EduSignal.Candidate object at 0x139625f10&gt;, &lt;EduSignal.Candidate object at 0x139625fd0&gt;]</code></pre>
+<pre><code>## [&lt;EduSignal.Candidate object at 0x143b77e80&gt;, &lt;EduSignal.Candidate object at 0x143b85730&gt;, &lt;EduSignal.Candidate object at 0x143b856a0&gt;, &lt;EduSignal.Candidate object at 0x143b85f10&gt;, &lt;EduSignal.Candidate object at 0x143b85fd0&gt;]</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.q1 </code></pre>
-<pre><code>## 0.47</code></pre>
+<pre><code>## 0.518</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.Uniform_Payoff</code></pre>
-<pre><code>## 1.53</code></pre>
+<pre><code>## 1.482</code></pre>
 <p>candidate’s instance method</p>
 <pre class="python"><code>SimpleSpence.candidate.Group = 1 #Convert back to 1 after Round 1.1
 SimpleSpence.candidate.__class__.Wage_Schedule</code></pre>
@@ -365,13 +365,13 @@ SimpleSpence.candidate.__class__.Wage_Schedule</code></pre>
 
 SimpleSpence.candidate.Group = 2 
 SimpleSpence.candidate.__class__.candidate1toN[0:5]</code></pre>
-<pre><code>## [&lt;EduSignal.Candidate object at 0x139617e80&gt;, &lt;EduSignal.Candidate object at 0x139625730&gt;, &lt;EduSignal.Candidate object at 0x1396256a0&gt;, &lt;EduSignal.Candidate object at 0x139625f10&gt;, &lt;EduSignal.Candidate object at 0x139625fd0&gt;]</code></pre>
+<pre><code>## [&lt;EduSignal.Candidate object at 0x143b77e80&gt;, &lt;EduSignal.Candidate object at 0x143b85730&gt;, &lt;EduSignal.Candidate object at 0x143b856a0&gt;, &lt;EduSignal.Candidate object at 0x143b85f10&gt;, &lt;EduSignal.Candidate object at 0x143b85fd0&gt;]</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.Wage_Schedule</code></pre>
 <pre><code>## 0.9</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.q1</code></pre>
-<pre><code>## 0.47</code></pre>
+<pre><code>## 0.518</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.__class__.Uniform_Payoff</code></pre>
-<pre><code>## 1.53</code></pre>
+<pre><code>## 1.482</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule)</code></pre>
 <pre><code>## 0.45</code></pre>
 <pre class="python"><code>SimpleSpence.candidate.Optimal_Education()</code></pre>
