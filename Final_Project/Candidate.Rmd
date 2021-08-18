@@ -1,5 +1,5 @@
 ---
-title: "Final_Project_Candidate"
+title: "Candidate"
 output: html_document
 ---
 
