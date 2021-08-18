@@ -207,12 +207,18 @@ from numpy import mean</code></pre>
 <ul>
 <li>也就是市場呈現 Separating Eqm。</li>
 </ul></li>
+</ol>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
 <li><p>如果沒有 incentive compability，那麼可能會得到兩種可能的狀況。</p>
 <ul>
 <li>不論高低能力者，皆是受低水準的教育，稱為 Pooling Eqm1。</li>
-<li>不論高低能力者，皆是受雇主宣告會認定為人才的標準（Wage_Schedule）。</li>
+<li>不論高低能力者，皆是受雇主宣告會認定為人才的標準（Wage_Schedule），是 Pooling Eqm2。</li>
 </ul></li>
-<li><p>使用物件導向程式設計的 Composition Approach。</p></li>
+</ol>
+<p><br></p>
+<ol start="3" style="list-style-type: decimal">
+<li>使用物件導向程式設計的 Composition Approach。</li>
 </ol>
 </div>
 </div>
@@ -264,6 +270,7 @@ from numpy import mean</code></pre>
 <ul>
 <li>雇主不僅看得到來應徵的那位（instance），也看得到整個求職者的分佈。感覺有點是因為架構 <code>candidate.__class__.candidate1toN</code> 的方式不夠好。所以最終還是把 Equilibrium 相關的 methods，單獨放在 JobMarket Class 裡面。但是並沒有表達到 Employer Class 其實隨著時間會像 JobMarket Class（Mr. JobMarket）一樣地思考並調整他的 Belief。</li>
 </ul>
+<p><br></p>
 <ol start="2" style="list-style-type: decimal">
 <li>但是另外一方面，employer 不可能窮盡所有的潛在求職者，因此他是錄取一個，衡量一個，修正過程是很慢的，也是有成本的。甚至他在這個職缺（或市場）始終都沒有做到分離均衡，團隊內薪酬相當齊值（或者相當接近），就是有 q1 的庸才，和 1-q1 的人才拿差不多的薪酬。</li>
 </ol>
