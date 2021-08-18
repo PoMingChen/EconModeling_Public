@@ -9,8 +9,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Reference
 
+0. Job Market Signaling Game
 1. Spence(1973), but ignore the section 6 about indices such as race or gender.
-2. Course Tutorial(Video, E-book, Scripts, Slides)
+2. Course Tutorial（Video, E-book, Scripts, Slides）
 
 ## makecondition
 
@@ -32,6 +33,11 @@ from numpy import mean
 ![Pooling_Eqm1](./Figures/Pooling_Eqm1.png)
 
 ![Pooling_Eqm2](./Figures/Pooling_Eqm2.png)
+---
+
+<br>
+<br>
+
 #### Reference Note
 
 1. 當 employer 想好 Belief(包含 Low, High, Wage_Schedule)之後，他就會向市場宣告這些資訊。並且求職者看到這些資訊，進行 Signaling Decision 之後，就會進入聘用階段，也就是觀察求職者本身的 Group 和 Signal，是否有 incentive compability。也就是高能力者受較高水準的教育，低能力者受較低水準的教育。

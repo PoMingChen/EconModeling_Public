@@ -9,8 +9,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Reference
 
-1. Spence(1973), but ignore the section 6 about indices such as race or gender.
-2. Course Tutorial(Video, E-book, Scripts, Slides)
+0. Job Market Signaling Game
+1. Spence（1973）, Observable Personal Attribute, but ignore the section 6 about indices such as race or gender.
+2. Course Tutorial（Video, E-book, Scripts, Slides）
 
 ## makecondition
 
@@ -23,11 +24,17 @@ from numpy.random import default_rng
 from numpy import mean
 ```
 
-### Reference about the Candidate Class
+### Reference about the Employer Class
 
-![Figure1](./Figures/Figure1.png)
+![Information Loop](./Figures/Figure1.png)
 
-![Figure2](./Figures/Figure2.png)
+![Wage Schedule](./Figures/Figure2.png)
+
+---
+
+<br>
+<br>
+
 
 #### Reference Note
 
@@ -35,7 +42,9 @@ from numpy import mean
 
 1. 一個求職市場，或者說一個職缺，只有一個雇主。他會面對如雪片般飛來的履歷，每一次錄取對於雇主都像一次賭注，因為他不知道這個求職者究竟是人才還是庸才。庸才也不是問題，但是只怕他們沒有如雇主的需要去展現他們自己的價值（No Incentive Compability），也間接地沒辦法把他們各自安排在適合的位置，整體效率不夠好。
 
-   - 僅使用 Spence 模型架構的倒數設定。
+   - 僅使用 Spence 模型架構的倒數設定（Negative Correlation to Productivity）
+ 
+<br>
 
 2. 參考 Figure1 （Employer's Conditional Probabilistic Beliefs），雇主會決定看到特定教育水準以上，他會認定該位求職者是位人才，給他比較高的薪酬。反之未達該水準，他會認定該位求職者是為庸才。
 
@@ -43,9 +52,9 @@ from numpy import mean
 
 ## Employer Class
 
-Spence 模型說的是一個 job market（一個求職市場，或者一個職缺），只有一個雇主。所以用 class method 或者 instance method 去寫好像落差不大。但是考量 `Low`，`High`，`Wage_Schedule`，這幾個參數的微調，包含高低薪酬的落差，以及 `Wage_Schedule` 以及比較靠近哪一邊，多少是可以反應雇主的性質。
+Spence 模型說的是一個 job market（一個求職市場，或者一個職缺）， __只有一個雇主__。所以用 class method 或者 instance method 去寫好像落差不大。但是考量 `Low`，`High`，`Wage_Schedule`，這幾個參數的微調，包含高低薪酬的落差，以及 `Wage_Schedule` 以及比較靠近哪一邊，多少是可以反應雇主的性質。
 
-所以有異質性成份，本質上也是 instance of Employer Class。像是 TSMC 和 Google 終究是不一樣的。
+所以有 __異質性成份__，本質上也是 instance of Employer Class。像是 TSMC 和 Google 終究是不一樣的。
 
 最後決定沒有用 class method。
 

@@ -103,7 +103,6 @@ class Candidate:
         #Push up to the class variable, so the `Optimal_Education` method can be done.
         cls.Uniform_Payoff = Uniform_Payoff
         return Uniform_Payoff
-
 #EOF
 
 class Employer:
