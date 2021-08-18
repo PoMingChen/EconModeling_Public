@@ -19,7 +19,7 @@ class Candidate:
     def Signaling_Cost(self, Education):
        assert (Education >= 0), "Education level is >=0"
        Group = self.Group
-       Signaling_Cost = Education/Group #negative correlation of costs and productivity.
+       Signaling_Cost = Education/Group #negative correlation of cost and productivity.
        return Signaling_Cost
     
     #It has to wait the additional class methods: q1 and Uniform_Payoff
@@ -39,8 +39,7 @@ class Candidate:
         Net_Return_of_Signal2 = High - Wage_Schedule/Group
         Net_Return_of_Signal3 = Uniform_Payoff - Wage_Schedule/Group
         
-        #Consider the scenarios when the Signal is equal to Wage_Schedule.
-        
+        #Consider the scenarios when the Signal is equal to Wage_Schedule at first
         #Targeting the Group2(The talent)
         if max(Uniform_Payoff,Net_Return_of_Signal2)==Net_Return_of_Signal2:
             self.Signal = Wage_Schedule
@@ -62,7 +61,7 @@ class Candidate:
         rng_seed = default_rng()
         
         #Every instance will be appended by the syntax `Candidate.candidate1toN.append(self)`
-        #The first element can be considered as our main character. So, we need N-1
+        #The first element can be considered as our main character. So, we need N-1.
         #candidate.__class__.candidate1toN return N Candidate instance
         Other_candidates_Initiation = [
           Candidate(Low=cls.Low,
@@ -114,7 +113,6 @@ class Employer:
        
     def Possible_Wage(self, Signal):
         Wage_Schedule = self.Wage_Schedule
-
         if(Signal >= Wage_Schedule):
           return self.High
         else:
@@ -124,38 +122,34 @@ class Employer:
 
 class JobMarket:
   
-  def __init__(self, employer, candidate):
-    self.employer = employer
-    self.candidate = candidate
-  
-  def Separating_Eqm(self):
+    def __init__(self, employer, candidate):
+      self.employer = employer
+      self.candidate = candidate
     
-    Group = self.candidate.Group
-    Signal = self.candidate.Signal
-    Wage_Schedule = self.employer.Wage_Schedule
-    
-    if ((Group == 1 and Signal == 0) or
-        (Group == 2 and Signal == Wage_Schedule)):
-        return "One more glance to check candidate from another Group(Type), therefore, the Separating Eqm will be more convincing."
-    else:
-        return "Check the scenario of Pooling Eqm."
+    def Separating_Eqm(self):
       
-  def Pooling_Eqm(self):
+      Group = self.candidate.Group
+      Signal = self.candidate.Signal
+      Wage_Schedule = self.employer.Wage_Schedule
+      
+      if ((Group == 1 and Signal == 0) or
+          (Group == 2 and Signal == Wage_Schedule)):
+          return "One more glance to check candidate from another Group(Type), therefore, the Separating Eqm will be more convincing."
+      else:
+          return "Check the scenario of Pooling Eqm."
     
-    q1 = self.candidate.__class__.q1
-    Group = self.candidate.Group
-    Signal = self.candidate.Signal
-    Wage_Schedule = self.employer.Wage_Schedule
-
-    if (Group == 2 and Signal == 0):
-        return "The Group2(The talent) have no incentive to signal since q1*2 < Wage_Schedule: " + str(q1) + " * 2" + " < " + str(Wage_Schedule)
-    elif (Group == 1 and Signal == Wage_Schedule):
-        return "The Group1(The normal) are urged to signal by market structure since Wage_Schedule < 1-q1: " + str(Wage_Schedule) + " < " + "1-" + str(q1)
-    else: 
-        return "Check if there is Separating Eqm."
-
+    def Pooling_Eqm(self):
+      
+      q1 = self.candidate.__class__.q1
+      Group = self.candidate.Group
+      Signal = self.candidate.Signal
+      Wage_Schedule = self.employer.Wage_Schedule
+  
+      if (Group == 2 and Signal == 0):
+          return "The Group2(The talent) have no incentive to signal since q1*2 < Wage_Schedule: " + str(q1) + " * 2" + " < " + str(Wage_Schedule)
+      elif (Group == 1 and Signal == Wage_Schedule):
+          return "The Group1(The normal) are urged to signal by market structure since Wage_Schedule < 1-q1: " + str(Wage_Schedule) + " < " + "1-" + str(q1)
+      else: 
+          return "Check if there is Separating Eqm."
 
 #EOF
-
-
-
