@@ -27,6 +27,7 @@ import EduSignal
 ```{python}
 Candidate = EduSignal.Candidate
 Employer = EduSignal.Employer
+JobMarket = EduSignal.JobMarket
 ```
 
 ### Reference Note
@@ -61,7 +62,7 @@ SimpleSpence.candidate.__class__.candidate1toN #500 candidates(first one is the 
 len(SimpleSpence.candidate.__class__.candidate1toN) #500
 SimpleSpence.candidate.q1()
 SimpleSpence.candidate.__class__.q1 
-SimpleSpence.candidate.Uniform_Payoff() #q1*1+(1-q1)*2
+SimpleSpence.candidate.Uniform_Payoff() #q1*1+(1-q1)*2 = 2-q1
 SimpleSpence.candidate.__class__.Uniform_Payoff
 ```
 
@@ -96,20 +97,20 @@ SimpleSpence.Separating_Eqm()
 
 ### Round 1.1: Check if the candidate is from the another group
 
-不再造一個 candidate(instance)，因為這樣會讓 `len(SimpleSpence.candidate.__class__.candidate1toN)` 從 500 變成 501，但是已經生成好的 class variable，包含 q1 和 Uniform_Payoff 都是由 500 人下去算的。
+不再造一個 candidate(instance)，因為 `Candidate.candidate1toN.append(self)` 會讓 `len(SimpleSpence.candidate.__class__.candidate1toN)` 從 500 變成 501，但是已經生成好的 class variable，包含 q1 和 Uniform_Payoff 都是由 500 人下去算的。
 ```{python}
 # SimpleSpence = JobMarket(employer = Employer(Low=1, High=2, Wage_Schedule=1.4),
 #                          candidate = Candidate(Group=1, Low=1, High=2, Wage_Schedule=1.4))
 ```
 
-所以單方面改`SimpleSpence.candidate.Group`，即是改`SimpleSpence.candidate.__class__.candidate1toN[0]`，也就是改該 candidate(instance) 的 Group。但還是有點不完全貼近現實。
+所以選擇單方面改`SimpleSpence.candidate.Group`，即是改`SimpleSpence.candidate.__class__.candidate1toN[0]`，也就是改該 candidate(instance) 的 Group。但還是有點不完全貼近現實。
 ```{python SimpleSpence1.1_candidate}
-# SimpleSpence.candidate.Group
+# SimpleSpence.candidate.Group #1
 # SimpleSpence.candidate.Population()
 # SimpleSpence.candidate.q1()
 SimpleSpence.candidate.Group = 2
 SimpleSpence.candidate.__class__.candidate1toN
-len(SimpleSpence.candidate.__class__.candidate1toN)
+len(SimpleSpence.candidate.__class__.candidate1toN) #Remain 500
 
 SimpleSpence.candidate.__class__.Wage_Schedule
 SimpleSpence.candidate.__class__.q1
@@ -138,15 +139,17 @@ SimpleSpence.Pooling_Eqm()
 
 ## Round2: Change the Wage_Schedule
 
+```{python Wage_Schedule_R2}
+Wage_Schedule_R2 = 0.9
+```
+
+理由同 Round 1.1
 ```{python}
 # SimpleSpence = JobMarket(employer = Employer(Low=1, High=2, Wage_Schedule=Wage_Schedule_R2),
 #                          candidate = Candidate(Group=1, Low=1, High=2, Wage_Schedule=Wage_Schedule_R2))
 ```
 
-```{python Wage_Schedule_R2}
-Wage_Schedule_R2 = 0.9
-```
-
+市場環境改變了
 ```{python}
 SimpleSpence.candidate.__class__.Wage_Schedule = Wage_Schedule_R2
 SimpleSpence.employer.Wage_Schedule = Wage_Schedule_R2
@@ -200,7 +203,7 @@ SimpleSpence.Separating_Eqm()
 ### Round 2.1: Check if the candidate is from the another group
 
 ```{python SimpleSpence2.1_candidate}
-#Round1.1 = Group2, Round2 = Group1
+#Round1.1 = Group2, Round2 = Group1...
 # SimpleSpence.candidate.Population() #No need to arouse again
 # SimpleSpence.candidate.q1() #No need to arouse again
 
@@ -233,8 +236,21 @@ SimpleSpence.Pooling_Eqm()
 
 ### Self-Reflection
 
-1. Signaling_Cost = Education/Group。有 Group1, 2，但是他們的生產力效率可以不見得是 1:2，可以是 1:5 甚至是 1:10 之類的。表達（庸才, 人才），（庸才，將才），（庸才，將將之才）的差別。自然也會影響到若 $q1 > \frac{a2}{a1}$ 成立，人才會有意願 Signaling 的可能性。（這邊最好再說一下 cost = a1y）等等。
+1. q1 是否真的能看到？那真要想，多少算合理？求職平台怎麼降低這個不對稱（對於雇主和求職者都是）
 
+2. Signaling_Cost = Education/Group。有 Group1, 2，但是他們的生產力效率可以不見得是 1:2。
+
+    - 可以是 1:5 甚至是 1:10 之類的。表達（庸才, 人才），（庸才，將才），（庸才，將將之才）的差別。
+    
+        - Cost of Group1: a1*y = (1) * y
+        
+        - Cost of Group2: a2*y = (1/5) * y
+    
+自然也會影響到人才會有意願 Signaling 的可能性。
+
+$$
+q1 > \frac{a2}{a1}
+$$
 
 
 
