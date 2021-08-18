@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Reference
 
 0. Job Market Signaling Game
-1. Spence(1973), but ignore the section 6 about indices such as race or gender.
+1. Spence（1973）, but ignore the section 6 about indices such as race or gender.
 2. Course Tutorial（Video, E-book, Scripts, Slides）
 
 ## makecondition
@@ -48,9 +48,9 @@ from numpy import mean
 
 2. 市場上有 q1 比例的人是庸才，1-q1 比例是人才。基本上是上帝所決定的。
 
-3. 透過 Figure4，在 Spence 模型中，人才會衡量雇主認定其為人才的門檻（y*），和選擇「不」做到鶴立雞群的預期報酬是多少？進而最佳化其教育水準（Signal），因此 q1，求職市場高手雲集的程度是所有求職者都知道的。
+3. 透上述 Figure4 ，在 Spence 模型中，人才會衡量雇主認定其為人才的門檻（y*），和選擇「不」做到鶴立雞群的預期報酬是多少？進而最佳化其教育水準（Signal）。因此 q1，求職市場高手雲集的程度是所有求職者都知道的。
 
-   - 進一步求職者知道如果大家的教育水準都相同，雇主預計會付多少（2-q1）。
+   - 求職者知道如果大家的教育水準都相同，雇主預計會付多少（2-q1）。
 
 ## Candidate Class
 
@@ -77,7 +77,7 @@ class Candidate:
     def Signaling_Cost(self, Education):
        assert (Education >= 0), "Education level is >=0"
        Group = self.Group
-       Signaling_Cost = Education/Group #negative correlation of costs and productivity.
+       Signaling_Cost = Education/Group #negative correlation of cost and productivity.
        return Signaling_Cost
     
     #It has to wait the additional class methods: q1 and Uniform_Payoff
@@ -98,7 +98,6 @@ class Candidate:
         Net_Return_of_Signal3 = Uniform_Payoff - Wage_Schedule/Group
         
         #Consider the scenarios when the Signal is equal to Wage_Schedule.
-        
         #Targeting the Group2(The talent)
         if max(Uniform_Payoff,Net_Return_of_Signal2)==Net_Return_of_Signal2:
             self.Signal = Wage_Schedule
@@ -120,7 +119,7 @@ class Candidate:
         rng_seed = default_rng()
         
         #Every instance will be appended by the syntax `Candidate.candidate1toN.append(self)`
-        #The first element can be considered as our main character. So, we need N-1
+        #The first element can be considered as our main character. So, we need N-1.
         #candidate.__class__.candidate1toN return N Candidate instance
         Other_candidates_Initiation = [
           Candidate(Low=cls.Low,
