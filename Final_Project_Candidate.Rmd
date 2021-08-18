@@ -43,6 +43,8 @@ from numpy import mean
 1. 求職市場上有兩種人（Group）：庸才和人才。人才的生產力是庸才的兩倍，接受教育的效率也是兩倍，所以成本是 1/2。
 
    - 僅使用 Spence 模型架構的倒數設定。
+   
+<br>
 
 2. 市場上有 q1 比例的人是庸才，1-q1 比例是人才。基本上是上帝所決定的。
 
@@ -173,11 +175,11 @@ Employer = EduSignal.Employer
 ```
 
 ```{python}
-employer = Employer(Low=1, High=2, Wage_Schedule=0.4)
+employer = Employer(Low=1, High=2, Wage_Schedule=0.9)
 ```
 
 ```{python}
-candidate_Group1_instance = Candidate(Group=1, Low=1, High=2, Wage_Schedule=0.4)
+candidate_Group1_instance = Candidate(Group=1, Low=1, High=2, Wage_Schedule=0.9)
 ```
 
 ```{python}
@@ -217,7 +219,7 @@ candidate_Group1_instance.Signal
 #### Group2
 
 ```{python}
-candidate_Group2_instance = Candidate(Group=2, Low=1, High=2, Wage_Schedule=0.4)
+candidate_Group2_instance = Candidate(Group=2, Low=1, High=2, Wage_Schedule=0.9)
 ```
 
 ```{python}

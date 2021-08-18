@@ -201,6 +201,9 @@ from numpy import mean</code></pre>
 <ul>
 <li>僅使用 Spence 模型架構的倒數設定。</li>
 </ul></li>
+</ol>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
 <li><p>市場上有 q1 比例的人是庸才，1-q1 比例是人才。基本上是上帝所決定的。</p></li>
 <li><p>透過 Figure4，在 Spence 模型中，人才會衡量雇主認定其為人才的門檻（y*），和選擇「不」做到鶴立雞群的預期報酬是多少？進而最佳化其教育水準（Signal），因此 q1，求職市場高手雲集的程度是所有求職者都知道的。</p>
 <ul>
@@ -326,32 +329,32 @@ from numpy import mean</code></pre>
 <h4>Group1</h4>
 <pre class="python"><code>import EduSignal
 Employer = EduSignal.Employer</code></pre>
-<pre class="python"><code>employer = Employer(Low=1, High=2, Wage_Schedule=0.4)</code></pre>
-<pre class="python"><code>candidate_Group1_instance = Candidate(Group=1, Low=1, High=2, Wage_Schedule=0.4)</code></pre>
+<pre class="python"><code>employer = Employer(Low=1, High=2, Wage_Schedule=0.9)</code></pre>
+<pre class="python"><code>candidate_Group1_instance = Candidate(Group=1, Low=1, High=2, Wage_Schedule=0.9)</code></pre>
 <pre class="python"><code>candidate_Group1_instance.__class__.High</code></pre>
 <pre><code>## 2</code></pre>
 <pre class="python"><code>candidate_Group1_instance.__class__.Low</code></pre>
 <pre><code>## 1</code></pre>
 <pre class="python"><code>candidate_Group1_instance.__class__.Wage_Schedule</code></pre>
-<pre><code>## 0.4</code></pre>
+<pre><code>## 0.9</code></pre>
 <pre class="python"><code>candidate_Group1_instance.__class__.candidate1toN #Only himself</code></pre>
-<pre><code>## [&lt;__main__.Candidate object at 0x10ee8fd60&gt;]</code></pre>
+<pre><code>## [&lt;__main__.Candidate object at 0x13f5c2d60&gt;]</code></pre>
 <div id="class-method" class="section level5">
 <h5>Class Method</h5>
 <pre class="python"><code>candidate_Group1_instance.Population()</code></pre>
 <pre><code>## 500</code></pre>
 <pre class="python"><code>candidate_Group1_instance.__class__.candidate1toN[0:5] #First element in candidate1toN is our main character.</code></pre>
-<pre><code>## [&lt;__main__.Candidate object at 0x10ee8fd60&gt;, &lt;__main__.Candidate object at 0x10eebaa60&gt;, &lt;__main__.Candidate object at 0x10eeba9a0&gt;, &lt;__main__.Candidate object at 0x10eebaf40&gt;, &lt;__main__.Candidate object at 0x10eeba3a0&gt;]</code></pre>
+<pre><code>## [&lt;__main__.Candidate object at 0x13f5c2d60&gt;, &lt;__main__.Candidate object at 0x13f5eca60&gt;, &lt;__main__.Candidate object at 0x13f5ec9a0&gt;, &lt;__main__.Candidate object at 0x13f5ecf40&gt;, &lt;__main__.Candidate object at 0x13f5ec3a0&gt;]</code></pre>
 <pre class="python"><code>candidate_Group1_instance.__class__.Population</code></pre>
 <pre><code>## 500</code></pre>
 <pre class="python"><code>candidate_Group1_instance.q1()</code></pre>
-<pre><code>## 0.484</code></pre>
+<pre><code>## 0.542</code></pre>
 <pre class="python"><code>candidate_Group1_instance.__class__.q1</code></pre>
-<pre><code>## 0.484</code></pre>
+<pre><code>## 0.542</code></pre>
 <pre class="python"><code>candidate_Group1_instance.Uniform_Payoff()</code></pre>
-<pre><code>## 1.516</code></pre>
+<pre><code>## 1.458</code></pre>
 <pre class="python"><code>candidate_Group1_instance.__class__.Uniform_Payoff</code></pre>
-<pre><code>## 1.516</code></pre>
+<pre><code>## 1.458</code></pre>
 </div>
 <div id="instance-method" class="section level5">
 <h5>Instance Method</h5>
@@ -360,35 +363,35 @@ Employer = EduSignal.Employer</code></pre>
 <pre class="python"><code>candidate_Group1_instance.Signaling_Cost(Education=1.3)</code></pre>
 <pre><code>## 1.3</code></pre>
 <pre class="python"><code>candidate_Group1_instance.Optimal_Education()</code></pre>
-<pre><code>## 0.4</code></pre>
+<pre><code>## 0</code></pre>
 <pre class="python"><code>candidate_Group1_instance.Signal</code></pre>
-<pre><code>## 0.4</code></pre>
+<pre><code>## 0</code></pre>
 </div>
 </div>
 <div id="group2" class="section level4">
 <h4>Group2</h4>
-<pre class="python"><code>candidate_Group2_instance = Candidate(Group=2, Low=1, High=2, Wage_Schedule=0.4)</code></pre>
+<pre class="python"><code>candidate_Group2_instance = Candidate(Group=2, Low=1, High=2, Wage_Schedule=0.9)</code></pre>
 <pre class="python"><code>candidate_Group2_instance.__class__.High</code></pre>
 <pre><code>## 2</code></pre>
 <pre class="python"><code>candidate_Group2_instance.__class__.Low</code></pre>
 <pre><code>## 1</code></pre>
 <pre class="python"><code>candidate_Group2_instance.__class__.Wage_Schedule</code></pre>
-<pre><code>## 0.4</code></pre>
+<pre><code>## 0.9</code></pre>
 <pre class="python"><code>candidate_Group2_instance.__class__.candidate1toN[0:5]</code></pre>
-<pre><code>## [&lt;__main__.Candidate object at 0x10ee8fd60&gt;, &lt;__main__.Candidate object at 0x10eebaa60&gt;, &lt;__main__.Candidate object at 0x10eeba9a0&gt;, &lt;__main__.Candidate object at 0x10eebaf40&gt;, &lt;__main__.Candidate object at 0x10eeba3a0&gt;]</code></pre>
+<pre><code>## [&lt;__main__.Candidate object at 0x13f5c2d60&gt;, &lt;__main__.Candidate object at 0x13f5eca60&gt;, &lt;__main__.Candidate object at 0x13f5ec9a0&gt;, &lt;__main__.Candidate object at 0x13f5ecf40&gt;, &lt;__main__.Candidate object at 0x13f5ec3a0&gt;]</code></pre>
 <div id="class-method-1" class="section level5">
 <h5>Class Method</h5>
 <pre class="python"><code># candidate_Group2_instance.Population()
 candidate_Group2_instance.__class__.candidate1toN[0:5]</code></pre>
-<pre><code>## [&lt;__main__.Candidate object at 0x10ee8fd60&gt;, &lt;__main__.Candidate object at 0x10eebaa60&gt;, &lt;__main__.Candidate object at 0x10eeba9a0&gt;, &lt;__main__.Candidate object at 0x10eebaf40&gt;, &lt;__main__.Candidate object at 0x10eeba3a0&gt;]</code></pre>
+<pre><code>## [&lt;__main__.Candidate object at 0x13f5c2d60&gt;, &lt;__main__.Candidate object at 0x13f5eca60&gt;, &lt;__main__.Candidate object at 0x13f5ec9a0&gt;, &lt;__main__.Candidate object at 0x13f5ecf40&gt;, &lt;__main__.Candidate object at 0x13f5ec3a0&gt;]</code></pre>
 <pre class="python"><code>candidate_Group2_instance.__class__.Population</code></pre>
 <pre><code>## 500</code></pre>
 <pre class="python"><code># candidate_Group1_instance.q1()
 candidate_Group1_instance.__class__.q1</code></pre>
-<pre><code>## 0.484</code></pre>
+<pre><code>## 0.542</code></pre>
 <pre class="python"><code># candidate_Group1_instance.Uniform_Payoff()
 candidate_Group1_instance.__class__.Uniform_Payoff</code></pre>
-<pre><code>## 1.516</code></pre>
+<pre><code>## 1.458</code></pre>
 </div>
 <div id="instance-method-1" class="section level5">
 <h5>Instance Method</h5>
@@ -397,9 +400,9 @@ candidate_Group1_instance.__class__.Uniform_Payoff</code></pre>
 <pre class="python"><code>candidate_Group2_instance.Signaling_Cost(Education=1.3)</code></pre>
 <pre><code>## 0.65</code></pre>
 <pre class="python"><code>candidate_Group2_instance.Optimal_Education()</code></pre>
-<pre><code>## 0.4</code></pre>
+<pre><code>## 0.9</code></pre>
 <pre class="python"><code>candidate_Group2_instance.Signal</code></pre>
-<pre><code>## 0.4</code></pre>
+<pre><code>## 0.9</code></pre>
 </div>
 </div>
 </div>
