@@ -123,23 +123,26 @@ class Employer:
 
 #EOF
 
-
 class JobMarket:
+  
   def __init__(self, employer, candidate):
     self.employer = employer
     self.candidate = candidate
+  
   def Separating_Eqm(self):
+    
     Group = self.candidate.Group
     Signal = self.candidate.Signal
     Wage_Schedule = self.employer.Wage_Schedule
     
     if ((Group == 1 and Signal == 0) or
-       (Group == 2 and Signal == Wage_Schedule)):
+        (Group == 2 and Signal == Wage_Schedule)):
         return "One more glance to check candidate from another Group(Type), therefore, the Separating Eqm will be more convincing."
     else:
         return "Check the scenario of Pooling Eqm."
       
   def Pooling_Eqm(self):
+    
     q1 = self.candidate.__class__.q1
     Group = self.candidate.Group
     Signal = self.candidate.Signal
@@ -148,10 +151,11 @@ class JobMarket:
     if (Group == 2 and Signal == 0):
         return "The Group2(The talent) have no incentive to signal since q1*2 < Wage_Schedule: " + str(q1) + " * 2" + " < " + str(Wage_Schedule)
     elif (Group == 1 and Signal == Wage_Schedule):
-        return "The Group1(The normal) are urged to signal by market structure since Wage_Schedule < 1-q1: " + str(Wage_Schedule) + "1-" + str(q1)
+        return "The Group1(The normal) are urged to signal by market structure since Wage_Schedule < 1-q1: " + str(Wage_Schedule) + " < " + "1-" + str(q1)
     else: 
         return "Check if there is Separating Eqm."
-     
+
+
 #EOF
 
 

@@ -19,84 +19,226 @@ from numpy.random import default_rng
 from numpy import mean
 ```
 
-
-### Final Trial on Candidate and Employer Class Interaction
-
-先從 Employer 本身的 Belief，以及他本身願意給人才和庸才各自多少，分別即是（Low, High, Wage_Schedule）。
-```{python Employer}
-class Employer:
-  
-   #想要一般化的話，這邊可以多高薪要多高，低薪要多低。也更容易一般化 Google TSMC 等頂尖企業
-    def __init__(self, Low, High, Wage_Schedule):
-        self.Wage_Schedule=Wage_Schedule
-        self.Low = Low
-        self.High = High
-       
-     
-    def Possible_Wage(self, Signal):
-        Wage_Schedule = self.Wage_Schedule
-         #In Spence, one candidate instance provide one signal, this is 1(employer) to N(candidates) game. But the concern comes from the reality that Signal is not a attribute belong to Employer. It's like a important, external information
-        # Employer.Signal = Signal
-        if(Signal >= Wage_Schedule):
-          return self.High
-        else:
-          return self.Low
-    
-    def Check_Eqm(self):
-        # 看起來是可行的。但是權限大到基本上就是 Mr.JobMarket，用 Mr.JobMarket 的視角在看 Mr.JobMarket 操作的 Eqm-related methods，還在想要不要這樣。
-        #Check_Eqm(self, employer, candidate)，employer 等於是自己。但是若寫
-        #Check_Eqm(self, candidate)
-        # self.jobmarket_result = JobMarket(employer=self, candidate) 會不對，是凸顯變成Mr.JobMarket事實
-        self.jobmarket_result_Separating = JobMarket.Separating_Eqm(self)
-        self.jobmarket_result_Pooling = JobMarket.Pooling_Eqm(self)
-    # 還有一個可能性是 Mr.JobMarket 做完 Eqm evaluation 之後，他單純借過來看，沒有 Input Arguments 作為阻擋或者 access friction，但是尚未確定是否做得到。
-    #就是 NoAdditionalArguments in method instruction and after JobMarket.xxxmethod e.g.JobMarket.SeparatingEqm(NoAdditionalArguments), return true false and possible paste0 expression about the Group and Signal to mimic the realization after hiring the candidate instance.(But, build the JobMarket.SeparatingEqm... as soon as possible. )
-    # def Check_Eqm(self, NoAdditionalArguments):
-    #     self.jobmarket_result1 = JobMarket.SeparatingEqm(NoAdditionalArguments)
-    #     self.jobmarket_result2 = JobMarket.Pooling1Eqm(NoAdditionalArguments)
-    #     self.jobmarket_result3 = JobMarket.Pooling3Eqm(NoAdditionalArguments)
-
-#EOF
-```
-
-
-```{python Class_JobMarket}
-class JobMarket:
-  def __init__(self, employer, candidate):
-    self.employer = employer
-    self.candidate = candidate
-  def Separating_Eqm(self):
-    Group = self.candidate.Group
-    Signal = self.candidate.Signal
-    Wage_Schedule = self.employer.Wage_Schedule
-    
-    if ((Group == 1 and Signal == 0) or
-       (Group == 2 and Signal == Wage_Schedule)):
-        return "One more glance to check candidate from another Group(Type), therefore, the Separating Eqm will be more convincing."
-    else:
-        return "Check the scenario of Pooling Eqm."
-      
-  def Pooling_Eqm(self):
-    q1 = self.candidate.__class__.q1
-    Group = self.candidate.Group
-    Signal = self.candidate.Signal
-    Wage_Schedule = self.employer.Wage_Schedule
-
-    if (Group == 2 and Signal == 0):
-        return "The Group2(The talent) have no incentive to signal since q1*2 < Wage_Schedule: " + str(q1) + " * 2" + " < " + str(Wage_Schedule)
-    elif (Group == 1 and Signal == Wage_Schedule):
-        return "The Group1(The normal) are urged to signal by market structure since Wage_Schedule < 1-q1: " + str(Wage_Schedule) + "1-" + str(q1)
-    else: 
-        return "Check if there is Separating Eqm."
-     
-#EOF
-```
-
-
 ```{python SimpleSpence}
 SimpleSpence = JobMarket(employer = Employer(Low=1, High=2, Wage_Schedule=1.4),
                          candidate = Candidate(Group=2, Low=1, High=2, Wage_Schedule=1.4))
 ```
+
+
+先從 Pooling Eqm 開始想，有點是在想 off-the-path 的部分如果沒問題，那麼 Separating Eqm 終究是成立了。
+
+## Round 1 The first candidate submits the CV.
+
+> We assume the candidate is talented, or Group2
+
+```{python Wage_Schedule_R1}
+Wage_Schedule_R1 = 1.4
+```
+
+```{python SimpleSpence1}
+SimpleSpence = JobMarket(employer = Employer(Low=1, High=2, Wage_Schedule=Wage_Schedule_R1),
+                         candidate = Candidate(Group=1, Low=1, High=2, Wage_Schedule=Wage_Schedule_R1))
+```
+
+#### Go through candidate's class & instance method 
+
+candidate's class method 
+```{python SimpleSpence1_candidate}
+SimpleSpence.candidate.__class__.Low
+SimpleSpence.candidate.__class__.High
+SimpleSpence.candidate.__class__.Wage_Schedule
+SimpleSpence.candidate.__class__.candidate1toN #Only himself
+SimpleSpence.candidate.Population()
+SimpleSpence.candidate.__class__.candidate1toN #500 candidates(first one is himself)
+len(SimpleSpence.candidate.__class__.candidate1toN) #500
+SimpleSpence.candidate.q1()
+SimpleSpence.candidate.__class__.q1 
+SimpleSpence.candidate.Uniform_Payoff() #q1*1+(1-q1)*2
+SimpleSpence.candidate.__class__.Uniform_Payoff
+```
+
+candidate's instance method 
+```{python}
+SimpleSpence.candidate.Group
+SimpleSpence.candidate.__class__.Wage_Schedule
+SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule)
+SimpleSpence.candidate.Optimal_Education()
+SimpleSpence.candidate.Signal
+```
+
+#### Go through employer's instance method 
+
+```{python SimpleSpence1_employer}
+SimpleSpence.employer.High
+SimpleSpence.employer.Low
+SimpleSpence.employer.Wage_Schedule
+SimpleSpence.employer.Possible_Wage(SimpleSpence.candidate.Signal)
+# SimpleSpence.employer.Check_Eqm(employer=SimpleSpence.employer, candidate=SimpleSpence.candidate)
+# SimpleSpence.employer.jobmarket_result.candidate.Signal
+# SimpleSpence.employer.jobmarket_result.candidate.Group
+```
+
+#### Go through jobmarket's instance Eqm methods
+
+Start with the Pooling_Eqm method can be more handy since we want to avoid it.
+```{python SimpleSpence1_Pooling_Eqm}
+SimpleSpence.Pooling_Eqm()
+```
+
+```{python SimpleSpence1_Separating_Eqm}
+SimpleSpence.Separating_Eqm()
+```
+
+### Round 1.1: Check if the candidate is from the another group
+
+不要再造一個 candidate(instance)，因為這樣會讓 `len(SimpleSpence.candidate.__class__.candidate1toN)` 從 500 變成 501，但是已經生成好的 class variable，包含 q1 和 Uniform_Payoff 都是由 500 人下去算的。
+```{python}
+# SimpleSpence = JobMarket(employer = Employer(Low=1, High=2, Wage_Schedule=1.4),
+#                          candidate = Candidate(Group=1, Low=1, High=2, Wage_Schedule=1.4))
+```
+
+單方面改`SimpleSpence.candidate.Group`，即是改`SimpleSpence.candidate.__class__.candidate1toN[0]`，也就是改該 candidate(instance) 的 Group。但還是有點不完全貼近現實。
+```{python SimpleSpence1.1_candidate}
+# SimpleSpence.candidate.Group #
+SimpleSpence.candidate.Group = 2
+# SimpleSpence.candidate.Population() #No need to arouse again
+SimpleSpence.candidate.__class__.candidate1toN
+len(SimpleSpence.candidate.__class__.candidate1toN)
+# SimpleSpence.candidate.q1() #No need to arouse again
+SimpleSpence.candidate.__class__.Wage_Schedule
+SimpleSpence.candidate.__class__.q1
+SimpleSpence.candidate.__class__.Uniform_Payoff
+SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule)
+SimpleSpence.candidate.Optimal_Education()
+SimpleSpence.candidate.Signal
+# SimpleSpence.candidate.__class__.candidate1toN[500].Group 
+```
+
+```{python SimpleSpence1.1_employer}
+SimpleSpence.employer.High
+SimpleSpence.employer.Low
+SimpleSpence.employer.Wage_Schedule
+SimpleSpence.employer.Possible_Wage(SimpleSpence.candidate.Signal)
+```
+```{python SimpleSpence1.1_Separating_Eqm}
+SimpleSpence.candidate.Group
+SimpleSpence.candidate.Signal
+SimpleSpence.Separating_Eqm()
+```
+
+```{python SimpleSpence1.1_Pooling_Eqm}
+SimpleSpence.Pooling_Eqm()
+```
+
+## Round2: Change the Wage_Schedule
+
+真要改 Wage_Schedule，必須要從 employer 這邊改，看看可否連過去，讓 `SimpleSpence.candidate.__class__.Wage_Schedule` 有所變化，若有，才是成功。也因為你上面單獨改了`SimpleSpence.candidate.__class__.Wage_Schedule`變成 0.8。但是你的 `SimpleSpence.employer.Wage_Schedule`，還是 1.4，自然有差錯。
+
+但是可能會不成功是因為你在 Job Market Class，針對兩個 Class，有兩個相同目的，但是不同生成管道的 Wage_Schedule，自然程式上是兩個 parameter。
+
+```{python Wage_Schedule_R2}
+Wage_Schedule_R2 = 0.9
+```
+
+但是如果相同 candidate group，然後單純在 SimpleSpence 製造的時候，單純改 Wage_Schedule，兩邊都改，應該就可以做到，等於是 Belief change。但是這邊如果要這樣做的話，會跟上面 Round 1.1 一樣，會把 Population 從 500 into 501。會有一點小瑕疵。
+```{python}
+# SimpleSpence = JobMarket(employer = Employer(Low=1, High=2, Wage_Schedule=Wage_Schedule_R2),
+#                          candidate = Candidate(Group=1, Low=1, High=2, Wage_Schedule=Wage_Schedule_R2))
+```
+
+```{python}
+SimpleSpence.candidate.__class__.Wage_Schedule = Wage_Schedule_R2
+SimpleSpence.employer.Wage_Schedule = Wage_Schedule_R2
+```
+
+#### Go through candidate's class & instance method 
+
+candidate's class method 
+```{python SimpleSpence2_candidate}
+SimpleSpence.candidate.__class__.Low
+SimpleSpence.candidate.__class__.High
+SimpleSpence.candidate.__class__.Wage_Schedule
+# SimpleSpence.candidate.Population()
+SimpleSpence.candidate.__class__.candidate1toN #500 candidates(first one is himself)
+len(SimpleSpence.candidate.__class__.candidate1toN) #500
+# The Population are fixed as round1
+# SimpleSpence.candidate.q1() 
+# SimpleSpence.candidate.Uniform_Payoff() #q1*1+(1-q1)*2
+SimpleSpence.candidate.__class__.q1 
+SimpleSpence.candidate.__class__.Uniform_Payoff
+```
+
+candidate's instance method 
+```{python}
+# SimpleSpence.candidate.Group #2
+SimpleSpence.candidate.Group = 1 #Convert back to 1 after Round 1.1
+SimpleSpence.candidate.__class__.Wage_Schedule
+SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule)
+SimpleSpence.candidate.Optimal_Education()
+SimpleSpence.candidate.Signal
+```
+
+#### Go through employer's instance method 
+
+```{python SimpleSpence2_employer}
+SimpleSpence.employer.High
+SimpleSpence.employer.Low
+SimpleSpence.employer.Wage_Schedule
+SimpleSpence.employer.Possible_Wage(SimpleSpence.candidate.Signal)
+# SimpleSpence.employer.Check_Eqm(employer=SimpleSpence.employer, candidate=SimpleSpence.candidate)
+# SimpleSpence.employer.jobmarket_result.candidate.Signal
+# SimpleSpence.employer.jobmarket_result.candidate.Group
+```
+#### Go through jobmarket's instance Eqm methods
+
+Start with the Pooling_Eqm method can be more handy since we want to avoid it.
+```{python SimpleSpence2_Pooling_Eqm}
+SimpleSpence.Pooling_Eqm()
+```
+
+```{python SimpleSpence2_Separating_Eqm}
+SimpleSpence.Separating_Eqm()
+```
+### Round 2.1: Check if the candidate is from the another group
+
+
+單方面改`SimpleSpence.candidate.Group`，即是改`SimpleSpence.candidate.__class__.candidate1toN[0]`，也就是改該 candidate(instance) 的 Group。但還是有點不完全貼近現實。
+```{python SimpleSpence2.1_candidate}
+# SimpleSpence.candidate.Group #Round1.1 = Group2, Round2 = Group1
+SimpleSpence.candidate.Group = 2 
+# SimpleSpence.candidate.Population() #No need to arouse again
+SimpleSpence.candidate.__class__.candidate1toN
+len(SimpleSpence.candidate.__class__.candidate1toN)
+# SimpleSpence.candidate.q1() #No need to arouse again
+SimpleSpence.candidate.__class__.Wage_Schedule
+SimpleSpence.candidate.__class__.q1
+SimpleSpence.candidate.__class__.Uniform_Payoff
+SimpleSpence.candidate.Signaling_Cost(Education=SimpleSpence.candidate.__class__.Wage_Schedule)
+SimpleSpence.candidate.Optimal_Education()
+SimpleSpence.candidate.Signal
+# SimpleSpence.candidate.__class__.candidate1toN[500].Group 
+```
+
+```{python SimpleSpence2.1_employer}
+SimpleSpence.employer.High
+SimpleSpence.employer.Low
+SimpleSpence.employer.Wage_Schedule
+SimpleSpence.employer.Possible_Wage(SimpleSpence.candidate.Signal)
+```
+
+```{python SimpleSpence2.1_Separating_Eqm}
+SimpleSpence.candidate.Group
+SimpleSpence.candidate.Signal
+SimpleSpence.Separating_Eqm()
+```
+
+```{python SimpleSpence2.1_Pooling_Eqm}
+SimpleSpence.Pooling_Eqm()
+```
+
+
+
+
 
 ```{python SimpleSpence_candidate}
 SimpleSpence.candidate.__class__.Low
@@ -123,6 +265,7 @@ SimpleSpence.employer.Wage_Schedule
 SimpleSpence.employer.Possible_Wage(SimpleSpence.candidate.Signal)
 
 ```
+
 Start with the Pooling_Eqm method can be more handy since we want to avoid it.
 ```{python SimpleSpence1_Pooling_Eqm}
 SimpleSpence.Pooling_Eqm()
@@ -132,98 +275,11 @@ SimpleSpence.Pooling_Eqm()
 SimpleSpence.Separating_Eqm()
 ```
 
-```{python}
-SimpleSpence.employer.Check_Eqm()
-```
 
 
-```{python Candidate}
-class Candidate: 
-    
-    candidate1toN = []
-    
-    def __init__(self, Group, Low, High, Wage_Schedule):
-        assert (Group in (1,2)), "The candidate is either low-type(Group=1) or high-type(Group=2)"
-        self.Group = Group
-        self.employer = Employer(Low, High, Wage_Schedule)
-        Candidate.Low = self.employer.Low
-        Candidate.High = self.employer.High
-        Candidate.Wage_Schedule = self.employer.Wage_Schedule
-        Candidate.candidate1toN.append(self)
-        
-    def Signaling_Cost(self, Education):
-       assert (Education >= 0), "Education level is >=0"
-       Group = self.Group
-       Signaling_Cost = Education/Group
-       return Signaling_Cost
-    
-    #For the class variable Uniform_Payoff, it has to wait the class method.
-    def Optimal_Education(self):
-        Low = Candidate.Low
-        High = Candidate.High
-        Wage_Schedule = Candidate.Wage_Schedule
-        Group = self.Group
-        Uniform_Payoff = Candidate.Uniform_Payoff
-        Net_Return_of_Signal1 = Low - 0/Group
-        Net_Return_of_Signal2 = High - Wage_Schedule/Group
-        Net_Return_of_Signal3 = Uniform_Payoff - Wage_Schedule/Group
-        
-        if max(Uniform_Payoff,Net_Return_of_Signal2)==Net_Return_of_Signal2:
-            self.Signal = Wage_Schedule
-            return Wage_Schedule
-        elif max(Net_Return_of_Signal1,Net_Return_of_Signal3)==Net_Return_of_Signal3:
-            self.Signal = Wage_Schedule
-            return Wage_Schedule
-        else:
-            self.Signal = 0
-            return 0
-     
-    #candidate_1to500[1].__class__.candidate1toN return N Candidate instance
-    @classmethod
-    def Population(cls, N=500):
-        
-        rng_seed = default_rng()
-        Other_candidates_Initiation = [
-          Candidate(Low=cls.Low,
-                    High=cls.High,
-                    Wage_Schedule=cls.Wage_Schedule,
-                    Group = int(rng_seed.integers(low=1, #inclusive
-                                                   high=3, #exclusive
-                                                   size=1))) for i in range(N-1)
-        ]
-        Population = len(Other_candidates_Initiation) + 1
-        cls.Population = Population
-        return Population
-    
-    
-    #先建立 classmethod 得到 q1。這樣就算是 500 個申請者有甦醒了。後續也要進到市場之後，才會去看到 wage
-    @classmethod
-    def q1(cls):
-        #有無機會把 rng(500) 容在這裡面？變得說甦醒的時候，我首先當然知道自己的 type，下一刻我會去問那這個世界的人才和庸才的比例狀況怎麼樣？（或者你再多一個 class method，因為你 proportion 用了 cls.candidate1to500。最終是希望可以一樣在 class variable 有一個 candidate500，這是所有 candidates 都知道的事情（但是要小心 Employer 會不會因此都看得到大家）
-        proportion = mean([cls.candidate1toN[i].Group for i in range(cls.Population)])
-        Group1_proportion = 2-proportion
-        
-        #Initiate the class variable q1 
-        cls.q1 = Group1_proportion 
-        return Group1_proportion
-      
-    #建立 classmethod 需要分開寫。申請者先掃過一眼自己的競爭者 Type 比例。然後如果計算如果不做 signaling，Uniform_Payoff 報酬是多少？
-    @classmethod
-    def Uniform_Payoff(cls): 
-        Low = cls.Low
-        High = cls.High
-        q1 = cls.q1 #q1 is awared by the initial(previous class method)
-        Uniform_Payoff = Low*q1 + High*(1-q1)
-        
-        #Initiate the class variable Uniform_Payoff
-        cls.Uniform_Payoff = Uniform_Payoff
-        return Uniform_Payoff
-
-#EOF
-```
 
 
-### Self-Relection
+### Self-Reflection
 
 1. Signaling_Cost = Education/Group。有 Group1, 2，但是他們的生產力效率可以不見得是 1:2，可以是 1:5 甚至是 1:10 之類的。表達（庸才, 人才），（庸才，將才），（庸才，將將之才）的差別。自然也會影響到若 $q1 > \frac{a2}{a1}$ 成立，人才會有意願 Signaling 的可能性。（這邊最好再說一下 cost = a1y）等等。
 
